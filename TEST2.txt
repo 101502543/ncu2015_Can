@@ -6,8 +6,5 @@ Just practice!
 .
 .
 .
-<<<<<<< HEAD
+
 ç¹¼çºŒæ¸¬è©¦ï¼Œæˆ‘åœ¨è©¦ç”¨TortoiseGit
-=======
-Ä~Äò´ú¸Õ¡A§Ú¦b¸Õ¥ÎTortoiseGit
->>>>>>> 713b8dd7977a8017486a879c016a77979a64e23c
