@@ -8,3 +8,10 @@ Just practice!
 .
 
 繼續測試，我在試用TortoiseGit
+.
+.
+.
+.
+.
+.
+測試2，嘗試使用分支(新版本)
