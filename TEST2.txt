@@ -1,4 +1,4 @@
-I don't know what am I doing @@ 
+﻿I don't know what am I doing @@ 
 Just practice!
 .
 .
@@ -6,3 +6,4 @@ Just practice!
 .
 .
 .
+繼續測試，我在試用TortoiseGit
