@@ -28,7 +28,6 @@ public class TestWindow extends JFrame{
 		super("Clash of Tower");
 		initSetting();
 		initComponent();
-		//screenSet[0].setBounds(5, 5,screenSet[0].getScreenSize().width, screenSet[0].getScreenSize().height);
 	}	
 	
 	private void initSetting(){
