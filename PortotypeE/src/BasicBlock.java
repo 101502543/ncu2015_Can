@@ -3,7 +3,7 @@ public class BasicBlock {
 	private String[] typeImage = { "landscape_28.png", "rocks_5.png"};
 
 	// type ボblock摸
-	// ㄒ  = 1━ホ = 2单单
+	// ㄒ  = 0━ホ = 1单单
 	public BasicBlock(int set_type) {
 		// TODO Auto-generated constructor stub
 		type = set_type;

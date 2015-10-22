@@ -6,21 +6,21 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
-public class ContentPanel extends JPanel{
+public class ContentPanel extends JPanel {
 
 	private BasicBlock[][] scene;
 	private int X = 2500, Y = 1000;
-	private boolean isbound;
+	private int oldX, oldY;
+	private int sceneSizeX = 50, sceneSizeY = 20;
 	private int[] nextColumn = { 48, 32 }, nextRow = { -48, 32 };
 	private int frameSizeX = 500, frameSizeY = 300;
-	private int imageWidth = 132, imageHigh = 100;
-	private int zeroX = (frameSizeX - 7 * 2) / 2 + 7 - imageWidth,
-			zeroY = 30 - 3 * imageHigh;
+	private int imageWidth = 100, imageHigh = 100;
+	private int zeroX, zeroY;
+	private final int coordinateX = frameSizeX / 2 - imageWidth,
+			coordinateY = 0 - frameSizeY;
 	private int LcornerX, LcornerY;
-	
-	
-    public ContentPanel() {
+
+	public ContentPanel() {
 
 		setMap();
 		this.addKeyListener(new KeyListener() {
@@ -39,46 +39,21 @@ public class ContentPanel extends JPanel{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				int oldX = X, oldY = Y;
-				int go = 0;
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					go = 1;
-					// zeroY -= 32;
-					X += 100;
-					Y += 100;
+					zeroY -= 25;
 				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					go = 2;
-					// zeroY += 25;
-					X -= 100;
-					Y -= 100;
+					zeroY += 25;
 				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					go = 3;
-					// zeroX -= 25;
-					X -= 100;
-					Y += 100;
+					zeroX -= 25;
 				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					go = 4;
-					// zeroX += 25;
-					X += 100;
-					Y -= 100;
-				}
-				getWindow();
-				if (isbound) {
-					isbound = false;
-					System.out.println("Is bound!");
-					X = oldX;
-					Y = oldY;
+					zeroX += 25;
 				}
 				getWindow();
 				repaint();
 			}
 		});
 	}
-	@Override
-	public void update(Graphics g) {
-		// TODO Auto-generated method stub
-		super.update(g);
-	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
@@ -86,44 +61,88 @@ public class ContentPanel extends JPanel{
 		super.paintComponent(g);
 		getWindow();
 		int theX = zeroX, theY = zeroY;
-		for (int i = LcornerX; i < LcornerX + 15; i++) {
-			for (int j = LcornerY; j < LcornerY + 15; j++) {
-				System.out.println(i + " " + j);
-				ImageIcon test = new ImageIcon(scene[j][i].getType());
+		for (int i = LcornerY; i < LcornerY + 15; i++) {
+			for (int j = LcornerX; j < LcornerX + 15; j++) {
+				ImageIcon test = new ImageIcon(scene[i][j].getType());
 				Image img = test.getImage();
-				g.drawImage(img, 
-						theX + (j - LcornerY) * nextColumn[0], 
-						theY + (j - LcornerY) * nextColumn[1],
-						100,
-						100,
-						this);
-			} 
-			theX = zeroX + (i - LcornerX) * nextRow[0];
-			theY = zeroY + (i - LcornerX) * nextRow[1];
+				g.drawImage(img, theX + (j - LcornerX) * nextColumn[0], theY
+						+ (j - LcornerX) * nextColumn[1], imageWidth,
+						imageHigh, this);
+			}
+			theX = zeroX + (i - LcornerY) * nextRow[0];
+			theY = zeroY + (i - LcornerY) * nextRow[1];
 		}
 
 	}
 
 	private void getWindow() {
+		oldX = X;
+		oldY = Y;
+		// Y < 1200 && Y > 700
+//		if (X < 4200 && X > 700) {
+//			if (Math.abs(zeroX - coordinateX) == 100) {
+//				if (zeroX > coordinateX) {
+//					X -= 100;
+//					Y += 100;
+//				} else {
+//					X += 100;
+//					Y -= 100;
+//				}
+//				zeroX = coordinateX;
+//			}
+//		} else {
+//			if (zeroX < coordinateX - 7 * imageWidth) {
+//				zeroX = coordinateX - 7 * imageWidth;
+//			}else if (zeroX > coordinateX + 7 * imageWidth) {
+//				zeroX = coordinateX + 5 * imageWidth;
+//			}
+//		}
+		if (Math.abs(zeroX - coordinateX) == 100) {
+			if (zeroX > coordinateX) {
+				X -= 100;
+				Y += 100;
+			} else {
+				X += 100;
+				Y -= 100;
+			}
+			zeroX = coordinateX;
+		}
+		if (Math.abs(zeroY - coordinateY) == 75) {
+			if (zeroY > coordinateY) {
+				X -= 100;
+				Y -= 100;
+			} else {
+				X += 100;
+				Y += 100;
+			}
+			zeroY = coordinateY;
+		}
 		int indexX = X / 100;
 		int indexY = Y / 100;
 		LcornerX = indexX - 7;
 		LcornerY = indexY - 7;
-		if (LcornerX < 0 || LcornerY < 0 || indexX + 7 >= 50 || indexY + 7 >= 20) {
-			isbound = true;
+		if (LcornerX < 0 || LcornerY < 0 || indexX + 7 >= sceneSizeX
+				|| indexY + 7 >= sceneSizeY) {
+			System.out.println("Is bound!");
+			System.out.println(oldX + " " + oldY);
+			X = oldX;
+			Y = oldY;
 		}
 	}
 
 	private void setMap() {
-		scene = new BasicBlock[20][50];
-		for (int y = 0; y < scene.length; y++) {
-			for (int x = 0; x < scene[0].length; x++) {
-				if (x == 49 || y == 19 || x == 0 || y == 0) {
+		zeroX = coordinateX;
+		zeroY = coordinateY;
+		scene = new BasicBlock[sceneSizeY][sceneSizeX];
+		for (int y = 0; y < sceneSizeY; y++) {
+			for (int x = 0; x < sceneSizeX; x++) {
+				if (x == sceneSizeX - 1 || y == sceneSizeY - 1 || x == 0
+						|| y == 0 || x == X / 100 && y == Y / 100) {
 					scene[y][x] = new BasicBlock(1);
-				}else {
+				} else {
 					scene[y][x] = new BasicBlock(0);
 				}
-//				scene[y][x] = new BasicBlock((int) (Math.random() * 2));
+				// scene[y][x] = new BasicBlock((int) (Math.random() * 2));
 			}
 		}
 	}
