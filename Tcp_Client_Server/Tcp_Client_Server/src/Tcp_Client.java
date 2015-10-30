@@ -40,7 +40,6 @@ public class Tcp_Client implements Runnable{
 					int tempIndex = treasure_index;
 					//if(tempIndex != -1)
 					//	get_treasure(tempIndex);
-					//只有當client此時沒有擁有該寶物時，才能夠發送GET訊息至server
 					if(!isHaveTreasure[(treasure_index)%3]){
 						get_treasure((treasure_index)%3);
 					}
@@ -57,7 +56,7 @@ public class Tcp_Client implements Runnable{
 		}
 	}
 	
-	/*private int getNextIndex(int treasure_index){
+	private int getNextIndex(int treasure_index){
 		int count = 0;
 		
 		while(count < 3){
@@ -68,7 +67,7 @@ public class Tcp_Client implements Runnable{
 			count++;
 		}
 		return -1;
-	}*/
+	}
 	
 	//發get寶物訊息至server
 	public void get_treasure(int index){

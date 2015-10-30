@@ -17,7 +17,7 @@ public class Tcp_Server extends TimerTask implements Runnable {
 	//紀錄client人數
 	int clientNum = 0;
 	Client_Info[] client_Info = new Client_Info[2];
-	//紀錄A,B,C寶物為哪個client所有
+	//紀錄client編號
 	int ClientNo[] = {-1,-1,-1};  
 
 	// initialize
@@ -52,8 +52,7 @@ public class Tcp_Server extends TimerTask implements Runnable {
 		}
 		System.out.println("Server已關閉");
 	}
-	
-	// 開啟server
+
 	public void openServerSocket() {
 		try {
 			this.server = new ServerSocket(this.ServerPort);
@@ -74,8 +73,9 @@ public class Tcp_Server extends TimerTask implements Runnable {
 		server_thread.start();
 	}
 	
-	//接收來自client的get message以及client的IP
+	//接收來自client的get message
 	public String getTreasureMessage(String message, String IP){
+		//ClientNo = clientNum;
 		switch(message){
 			case "GA":
 				return GetTreasure(0,"A",IP);
@@ -106,7 +106,6 @@ public class Tcp_Server extends TimerTask implements Runnable {
 	public String GetTreasure(int index, String Treasure, String IP){
 		if(!serverTreasure.treasure[index]){
 			serverTreasure.treasure[index] = true;
-			// 將傳過來的IP與物件中紀錄的ip配對，得知是由哪位client所發送
 			for(int i = 0 ; i < clientNum; i++){
 				if(client_Info[i].ip.equals(IP)){
 					ClientNo[index] = (client_Info[i].number);
