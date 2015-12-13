@@ -1,4 +1,4 @@
-package cof.can.udpbc.test;
+package cof.can.test;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ public class testCDC {
 	// test the command sent from CDC, the first element in the command must be
 	// "ADD"
 	@Test
-	public void testCDC_ADD() {
+	public final void testCDC_ADD() {
 		Vector msgCDC = CDC.getUpdateInfo1();
 		assertEquals("ADD,ItemName,1,OwnerName,1", msgCDC.elementAt(0).toString());
 	}
@@ -23,7 +23,7 @@ public class testCDC {
 	// test the command sent from CDC, the first element in the command must be
 	// "UPDATE"
 	@Test
-	public void testCDC_UPDATE() {
+	public final void testCDC_UPDATE() {
 		Vector msgCDC = CDC.getUpdateInfo2();
 		assertEquals("UPDATE,ItemName,1,OwnerName,1,N,10,1,1", msgCDC.elementAt(0).toString());
 	}

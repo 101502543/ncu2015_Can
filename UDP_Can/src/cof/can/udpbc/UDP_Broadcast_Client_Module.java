@@ -8,29 +8,28 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
-public class UDP_Broadcast_Client_Module extends Thread {
+public class UDP_Broadcast_Client_Module extends Thread implements
+		TCP_Server_module {
 
 	int port; // port
 	InetAddress serverAddress; // represent server's ip address
 	private String msg; // represent the message which we want to send
 	private String ip1, ip2;// represent the ip address1 and the ip address2
 	private Vector updateInfo1, updateInfo2;// add or update
-	TCP_Server_module TCPSM = new TCP_Server_module();
-
-	 public void startUDPBroadCast() throws Exception {
-	 UDP_Broadcast_Client_Module udp = new UDP_Broadcast_Client_Module();
-	 }
+	public void startUDPBroadCast() throws Exception {
+		UDP_Broadcast_Client_Module udp = new UDP_Broadcast_Client_Module();
+	}
 
 	public UDP_Broadcast_Client_Module() {
 		int startTime1 = 0, startTime2 = 0, duration1 = 1000, duration2 = 200;
-
-		Vector clientTable = TCPSM.getClientIPTable();
+		Vector clientTable = getClientIPTable();
 		ip1 = clientTable.get(0).toString();
 		ip2 = clientTable.get(1).toString();
 
 		Timer timer = new Timer();// set the time counter
 		timer.schedule(new connect(this), startTime1, duration1);
 		timer.schedule(new connect2(this), startTime2, duration2);
+
 	}
 
 	public UDP_Broadcast_Client_Module(String openServer, int openPortNum,
@@ -64,8 +63,17 @@ public class UDP_Broadcast_Client_Module extends Thread {
 		return ip2;
 	}
 
+	@Override
+	public Vector getClientIPTable() {
+		Vector ClientIPTable = new Vector();
+		ClientIPTable.add("127.0.0.1");
+		ClientIPTable.add("140.115.50.2");
+		return ClientIPTable;
+	}
+
 }
 
+//sent ADD
 class connect extends TimerTask {
 
 	UDP_Broadcast_Client_Module u;
@@ -83,10 +91,12 @@ class connect extends TimerTask {
 		String msg = CDC.getUpdateInfo1().toString();// update
 
 		try {
+
 			client1 = new UDP_Broadcast_Client_Module(u.getIPOne(), 8888, msg);
 			client2 = new UDP_Broadcast_Client_Module(u.getIPTwo(), 8888, msg);
 			client1.run(); // start UdpClient
 			client2.run(); // start UdpClient
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,6 +105,7 @@ class connect extends TimerTask {
 	}
 }
 
+//send update
 class connect2 extends TimerTask {
 
 	UDP_Broadcast_Client_Module u;
@@ -112,10 +123,12 @@ class connect2 extends TimerTask {
 		String msg = CDC.getUpdateInfo2().toString();// update
 
 		try {
+
 			client1 = new UDP_Broadcast_Client_Module(u.getIPOne(), 8888, msg);
 			client2 = new UDP_Broadcast_Client_Module(u.getIPTwo(), 8888, msg);
 			client1.run(); // start UdpClient
 			client2.run(); // start UdpClient
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
