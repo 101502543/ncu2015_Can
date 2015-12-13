@@ -1,0 +1,109 @@
+package ex2.refactored;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
+
+public class RandomIncreasingCounterPresenterTest {
+
+	RandomIncreasingCounterView mockedView;
+	ConsoleOutputMock mockedConsoleOutput;
+	RandomIncreasingCounter counterStub;
+	RandomIncreasingCounterPresenter presenter;
+
+	@Before
+	public void setUp() throws Exception {
+		mockedView = new CounterViewMock();
+		mockedConsoleOutput = new ConsoleOutputMock();
+		counterStub = new CounterStub();
+		presenter = new RandomIncreasingCounterPresenter(mockedView,
+				mockedConsoleOutput, counterStub);
+	}
+
+	@Test
+	public final void testOutputMessage() {
+		
+		// first, use mock to determine how to verify
+		mockedConsoleOutput.setVerifyStrategy(new ConsoleOutput() {
+			@Override
+			public void writeLine(String content) {
+				assertEquals("current number: 3", content);
+			    System.out.print("hello");
+			}
+		});
+		// then exercise
+		presenter.onNextInput(6);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public final void testIllegalInputNumberZero() {
+		presenter.onNextInput(0);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public final void testIllegalInputNumberNagitive() {
+		presenter.onNextInput(-5);
+	}
+
+	// TODO: your turn now, try finish this test method
+	@Test
+	public final void testOutputMessagePractice() {
+		// hint: finish this test method by imitating testOutputMessage() above,
+		// and understand class ConsoleOutputMock, CounterStub below
+
+		// don't change this line, it's part of this practice
+		presenter.onNextInput(100);
+	}
+}
+
+class ConsoleOutputMock implements ConsoleOutput {
+
+	private ConsoleOutput verifyStrategy;
+
+	public void setVerifyStrategy(ConsoleOutput verifyStrategy) {
+		this.verifyStrategy = verifyStrategy;
+	}
+
+	@Override
+	public void writeLine(String content) {
+		if (verifyStrategy != null) {
+			verifyStrategy.writeLine(content);
+		}
+	}
+}
+
+class CounterStub implements RandomIncreasingCounter {
+
+	private int count = 0;
+
+	// the result of "random.nextInt(max) + 1" could be "(max + 1) / 2",
+	// so we can stubbing it out this way without breaking its invariant
+	@Override
+	public void RandIncrease(int max) throws IllegalArgumentException {
+		if (max <= 0) {
+			throw new IllegalArgumentException();
+		}
+		count += (max + 1) / 2;
+	}
+
+	@Override
+	public int getCurrentCount() {
+		return count;
+	}
+}
+
+class CounterViewMock extends RandomIncreasingCounterView {
+
+	@Override
+	protected void run() {
+		// we want to stub out this method, so do nothing
+	}
+
+	@Override
+	public void writeLine(String content) {
+		fail("Controller should use given ConsoleOutput to print, not view.");
+	}
+}

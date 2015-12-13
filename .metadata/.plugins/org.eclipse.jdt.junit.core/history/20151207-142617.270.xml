@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="RandomIncreasingCounterPresenterTest" project="JUnitExercise" tests="4" started="4" failures="0" errors="0" ignored="0">
+  <testsuite name="ex2.refactored.RandomIncreasingCounterPresenterTest" time="0.002">
+    <testcase name="testIllegalInputNumberZero" classname="ex2.refactored.RandomIncreasingCounterPresenterTest" time="0.001"/>
+    <testcase name="testOutputMessage" classname="ex2.refactored.RandomIncreasingCounterPresenterTest" time="0.0"/>
+    <testcase name="testOutputMessagePractice" classname="ex2.refactored.RandomIncreasingCounterPresenterTest" time="0.0"/>
+    <testcase name="testIllegalInputNumberNagitive" classname="ex2.refactored.RandomIncreasingCounterPresenterTest" time="0.0"/>
+  </testsuite>
+</testrun>

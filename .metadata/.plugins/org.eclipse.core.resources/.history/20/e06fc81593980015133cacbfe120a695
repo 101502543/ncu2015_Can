@@ -1,0 +1,14 @@
+package Can_UDPBC;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class UDPBC {
+
+	// called by main program of server computer when
+	// the all the connection is established and the networked game is started
+	// The method starts the UDP Broadcast thread.
+	public void startUDPBroadCast(){
+		
+	}
+}

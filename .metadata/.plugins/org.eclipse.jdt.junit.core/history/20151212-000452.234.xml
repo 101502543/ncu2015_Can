@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="testAll" project="UDP_Can" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="cof.can.test.testAll" time="1.692">
+    <testcase name="test" classname="cof.can.test.testAll" time="1.692"/>
+  </testsuite>
+</testrun>

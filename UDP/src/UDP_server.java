@@ -18,6 +18,7 @@ public class UDP_server {
     public void run() throws Exception {
         final int msgSize = 8000;                    // message MAX size 8000.
         byte buffer[] = new byte[msgSize];            // set the message buffer
+       
         while(true) {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             DatagramSocket socket = new DatagramSocket(port);         // set the receive UDP Socket.

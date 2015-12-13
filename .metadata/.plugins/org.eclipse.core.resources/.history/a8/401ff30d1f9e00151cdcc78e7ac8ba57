@@ -1,0 +1,32 @@
+package cof.can.udpbc;
+
+import java.util.Vector;
+
+public class Centralized_Data_Center {
+
+	private Vector<Command> updateInfo;
+	
+	public Vector<Command> getUpdateInfo(){
+		updateInfo.add(new Command("UPDATE","ItemNumber","1","OwnerNum","1"));
+		Vector<Command> result = (Vector<Command>) updateInfo.clone();
+		updateInfo.clear();
+		return result;	
+	}
+	
+}
+
+class Command {
+	private String type;  // ADD or UPDATE
+	private String content;
+	
+	public Command(String type, String ItemString,String ItemNumber,String OwnerString,String OwnerNumber){
+		assert (!type.equals("ADD") || !type.equals("UPDATE"));
+		this.type = type;
+		this.content = type+","+ItemString+","+ItemNumber+","+OwnerString+","+OwnerNumber;
+	}
+	
+	public String toString(){
+		String result = "UPDATE,ItemNomber,1,OwnerNum,1"; 
+		return result;		
+	}
+}

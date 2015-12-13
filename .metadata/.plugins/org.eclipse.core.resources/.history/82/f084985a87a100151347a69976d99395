@@ -1,0 +1,13 @@
+package cof.can.udpbc;
+
+import java.util.Vector;
+
+public interface Centralized_Data_Center {
+
+	public Vector updateInfo = new Vector();
+	public Vector updateInfo1 = new Vector();
+	public Vector updateInfo2 = new Vector();
+	public Vector getUpdateInfo1();
+	public Vector getUpdateInfo2();
+	
+}

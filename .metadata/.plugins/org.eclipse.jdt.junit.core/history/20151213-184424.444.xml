@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="testAll" project="UDP_Can" tests="4" started="4" failures="0" errors="0" ignored="0">
+  <testsuite name="cof.can.test.testAll" time="1.954">
+    <testcase name="testUDPUS" classname="cof.can.test.testAll" time="1.95"/>
+    <testcase name="test" classname="cof.can.test.testAll" time="0.002"/>
+    <testcase name="testIllegalInputNoInteger" classname="cof.can.test.testAll" time="0.001"/>
+    <testcase name="testIllegalInputWrongStringSize" classname="cof.can.test.testAll" time="0.001"/>
+  </testsuite>
+</testrun>

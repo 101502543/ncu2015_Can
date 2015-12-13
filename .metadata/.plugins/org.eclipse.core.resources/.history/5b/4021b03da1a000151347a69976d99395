@@ -1,0 +1,100 @@
+package cof.can.test;
+
+import static org.junit.Assert.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import cof.can.udpbc.UDP_Broadcast_Client_Module;
+import cof.can.udpus.Dynamic_Object_Module;
+import cof.can.udpus.UDP_Update_Server_Module;
+
+public class testAll {
+
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPUS;
+	DOMMock domMock;
+	Timer timer = new Timer();
+
+	@Before
+	public void setUp() throws Exception {
+		domMock = new DOMMock();
+		UDPBC = new UDP_Broadcast_Client_Module();
+		UDPUS = new UDP_Update_Server_Module(8888,domMock);
+		
+	}
+
+	@Test
+	public void test() throws Exception {
+		//run the UDPBC,UDPUS
+		timer.schedule(new control(UDPBC, UDPUS), 0, 1000);
+		Thread.sleep(2000);
+		// test getIPOne
+		assertNotNull(UDPBC.getIPOne());
+		// test getIPTwo
+		assertNotNull(UDPBC.getIPTwo());
+		// test getClientIPTable
+		assertNotNull(UDPBC.getClientIPTable());
+		// test judgeCommand function in UDPUS is entered or not
+		assertTrue(UDPUS.judgeFlag);
+
+	}
+
+}
+
+class control extends TimerTask {
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPUS;
+
+	public control(UDP_Broadcast_Client_Module UDPBC,
+			UDP_Update_Server_Module UDPUS) {
+		this.UDPBC = UDPBC;
+		this.UDPUS = UDPUS;
+	}
+
+	@Override
+	public void run() {
+		try {
+			UDPBC.startUDPBroadCast();
+			UDPUS.initUDPServer();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
+
+
+class DOMMock implements Dynamic_Object_Module {
+
+	@Override
+	public void addVirtualCharacter(int clientno, boolean flag) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addItem(String name, int index, boolean shared, boolean flag) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateVirtualCharacter(int clientno, String dir, int speed,
+			int x, int y, boolean flag) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateItem(int index, boolean shared, String owner, boolean flag) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

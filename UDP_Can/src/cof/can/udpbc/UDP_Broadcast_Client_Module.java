@@ -9,13 +9,13 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 public class UDP_Broadcast_Client_Module extends Thread implements
-		TCP_Server_module {
+		TCP_Server_module,Centralized_Data_Center {
 
 	int port; // port
 	InetAddress serverAddress; // represent server's ip address
 	private String msg; // represent the message which we want to send
 	private String ip1, ip2;// represent the ip address1 and the ip address2
-	private Vector updateInfo1, updateInfo2;// add or update
+	
 	public void startUDPBroadCast() throws Exception {
 		UDP_Broadcast_Client_Module udp = new UDP_Broadcast_Client_Module();
 	}
@@ -71,6 +71,30 @@ public class UDP_Broadcast_Client_Module extends Thread implements
 		return ClientIPTable;
 	}
 
+	@Override
+	public Vector getUpdateInfo1() {
+		Vector updateInfo1 = new Vector();// add 
+		int i = 1;
+		int k = 1;
+		updateInfo1.add("ADD,ItemName," + i + ",OwnerName," + k);
+		return updateInfo1;
+	}
+
+	@Override
+	public Vector getUpdateInfo2() {
+		Vector updateInfo2 = new Vector();// update
+		int j = 1;
+		int z = 1;
+		int speed = 10;
+		int locationX = 1;
+		int locationY = 1;
+		String dir;
+		dir = "N";
+		updateInfo2.add("UPDATE,ItemName," + j + ",OwnerName," + z + "," + dir
+				+ "," + speed + "," + locationX + "," + locationY);
+		return updateInfo2;
+	}
+
 }
 
 //sent ADD
@@ -86,9 +110,8 @@ class connect extends TimerTask {
 	public void run() {
 		UDP_Broadcast_Client_Module client1;
 		UDP_Broadcast_Client_Module client2;
-		Centralized_Data_Center CDC = new Centralized_Data_Center();
 
-		String msg = CDC.getUpdateInfo1().toString();// update
+		String msg = u.getUpdateInfo1().toString();// update
 
 		try {
 
@@ -118,9 +141,7 @@ class connect2 extends TimerTask {
 	public void run() {
 		UDP_Broadcast_Client_Module client1;
 		UDP_Broadcast_Client_Module client2;
-		Centralized_Data_Center CDC = new Centralized_Data_Center();
-
-		String msg = CDC.getUpdateInfo2().toString();// update
+		String msg = u.getUpdateInfo2().toString();// update
 
 		try {
 

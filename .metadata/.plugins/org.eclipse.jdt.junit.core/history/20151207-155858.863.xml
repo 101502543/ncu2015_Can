@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="LinkedListNodeTest" project="JUnitExercise" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="ex3.LinkedListNodeTest" time="0.001">
+    <testcase name="testContainByList" classname="ex3.LinkedListNodeTest" time="0.001"/>
+    <testcase name="testNotContainByFiveNodeList" classname="ex3.LinkedListNodeTest" time="0.0"/>
+    <testcase name="testNotContainByOneNodeList" classname="ex3.LinkedListNodeTest" time="0.0"/>
+    <testcase name="testContainByFiveNodeList" classname="ex3.LinkedListNodeTest" time="0.0"/>
+    <testcase name="testNotContainBySecondNodeFromList" classname="ex3.LinkedListNodeTest" time="0.0"/>
+    <testcase name="testLength" classname="ex3.LinkedListNodeTest" time="0.0"/>
+    <testcase name="testLengthFromSecondNode" classname="ex3.LinkedListNodeTest" time="0.0"/>
+  </testsuite>
+</testrun>
