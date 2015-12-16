@@ -3,7 +3,7 @@ import javax.swing.SwingUtilities;
 
 public class Main extends JFrame {
 
-	private int frameSizeX = 500, frameSizeY = 300;
+	private int frameSizeX = 1000, frameSizeY = 600;
 	private int imageWidth = 132, imageHigh = 100;
 
 	public static void main(String[] args) {

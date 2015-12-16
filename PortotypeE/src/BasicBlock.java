@@ -1,6 +1,8 @@
 public class BasicBlock {
 	private int type;
-	private String[] typeImage = { "landscape_28.png", "rocks_5.png"};
+	private String[] typeImage = { "gress.png", "rocks.png", "road_x.png",
+			"road_y.png", "road_cross.png", "corner_lu.png", "corner_ld.png",
+			"corner_ru.png", "corner_rd.png", "road_lb.png", "road_rb.png", "road_ub.png", "road_db.png" };
 
 	// type 表示block類型
 	// 例如 草原 = 0、岩石 = 1等等
@@ -9,7 +11,10 @@ public class BasicBlock {
 		type = set_type;
 	}
 
-	public String getType() {
+	public String getTypeImage() {
 		return typeImage[type];
+	}
+	public Integer getType() {
+		return type;
 	}
 }
