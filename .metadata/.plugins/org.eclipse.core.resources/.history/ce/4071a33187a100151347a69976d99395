@@ -1,0 +1,138 @@
+package cof.can.udpbc;
+
+//FreeGeng 2015/12/2
+//encoding UTTF-8
+
+import java.net.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
+
+public class UDP_Broadcast_Client_Module extends Thread implements
+		TCP_Server_module {
+
+	int port; // port
+	InetAddress serverAddress; // represent server's ip address
+	private String msg; // represent the message which we want to send
+	private String ip1, ip2;// represent the ip address1 and the ip address2
+	private Vector updateInfo1, updateInfo2;// add or update
+	public void startUDPBroadCast() throws Exception {
+		UDP_Broadcast_Client_Module udp = new UDP_Broadcast_Client_Module();
+	}
+
+	public UDP_Broadcast_Client_Module() {
+		int startTime1 = 0, startTime2 = 0, duration1 = 1000, duration2 = 200;
+		Vector clientTable = getClientIPTable();
+		ip1 = clientTable.get(0).toString();
+		ip2 = clientTable.get(1).toString();
+
+		Timer timer = new Timer();// set the time counter
+		timer.schedule(new connect(this), startTime1, duration1);
+		timer.schedule(new connect2(this), startTime2, duration2);
+
+	}
+
+	public UDP_Broadcast_Client_Module(String openServer, int openPortNum,
+			String sendMsg) throws Exception {
+		port = openPortNum; // set the port
+		serverAddress = InetAddress.getByName(openServer); // transfer
+		msg = sendMsg; // set the message which we want to send
+	}
+
+	public void run() {
+		try {
+			byte buffer[] = msg.getBytes(); // transfer msg to byte
+			// build the packet to DatagramPacket
+			// set the destination
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length,
+					serverAddress, port);
+			DatagramSocket socket = new DatagramSocket(); // build the server
+
+			socket.send(packet);
+			socket.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getIPOne() {
+		return ip1;
+	}
+
+	public String getIPTwo() {
+		return ip2;
+	}
+
+	@Override
+	public Vector getClientIPTable() {
+		Vector ClientIPTable = new Vector();
+		ClientIPTable.add("127.0.0.1");
+		ClientIPTable.add("140.115.50.2");
+		return ClientIPTable;
+	}
+
+}
+
+//sent ADD
+class connect extends TimerTask {
+
+	UDP_Broadcast_Client_Module u;
+
+	// let this udp be a pointer that point to line17's udp
+	public connect(UDP_Broadcast_Client_Module u) {
+		this.u = u;
+	}
+
+	public void run() {
+		UDP_Broadcast_Client_Module client1;
+		UDP_Broadcast_Client_Module client2;
+		Centralized_Data_Center CDC = new Centralized_Data_Center();
+
+		String msg = CDC.getUpdateInfo1().toString();// update
+
+		try {
+
+			client1 = new UDP_Broadcast_Client_Module(u.getIPOne(), 8888, msg);
+			client2 = new UDP_Broadcast_Client_Module(u.getIPTwo(), 8888, msg);
+			client1.run(); // start UdpClient
+			client2.run(); // start UdpClient
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
+
+//send update
+class connect2 extends TimerTask {
+
+	UDP_Broadcast_Client_Module u;
+
+	// let this udp be a pointer that point to line17's udp
+	public connect2(UDP_Broadcast_Client_Module u) {
+		this.u = u;
+	}
+
+	public void run() {
+		UDP_Broadcast_Client_Module client1;
+		UDP_Broadcast_Client_Module client2;
+		Centralized_Data_Center CDC = new Centralized_Data_Center();
+
+		String msg = CDC.getUpdateInfo2().toString();// update
+
+		try {
+
+			client1 = new UDP_Broadcast_Client_Module(u.getIPOne(), 8888, msg);
+			client2 = new UDP_Broadcast_Client_Module(u.getIPTwo(), 8888, msg);
+			client1.run(); // start UdpClient
+			client2.run(); // start UdpClient
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}

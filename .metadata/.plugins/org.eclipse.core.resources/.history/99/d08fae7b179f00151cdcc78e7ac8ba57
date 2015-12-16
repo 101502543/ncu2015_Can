@@ -1,0 +1,72 @@
+package cof.can.udpus;
+
+import java.net.*;
+
+public class UDP_Update_Server_Module {
+	int port;// connection port
+	Dynamic_Object_Module DOM = new Dynamic_Object_Module();
+
+	// public void initUDPServer() throws Exception {
+	// UDP_Update_Server_Module server = new UDP_Update_Server_Module(8888);
+	// server.run(); // execute the server
+	// }
+
+	public static void main(String args[]) throws Exception {
+		UDP_Update_Server_Module server = new UDP_Update_Server_Module(8888);
+		server.run(); // execute the server
+	}
+
+	public UDP_Update_Server_Module(int openPortNum) {
+		port = openPortNum; // set the port
+	}
+
+	public void run() throws Exception {
+		final int msgSize = 8000; // message MAX size 8000.
+		byte buffer[] = new byte[msgSize]; // set the message buffer
+
+		while (true) {
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+			// set the receive UDP server
+			DatagramSocket socket = new DatagramSocket(port);
+			socket.receive(packet); // receive packet。
+			// transfer the receive message to String。
+			String receiveMsg = new String(buffer, 0, packet.getLength());
+			System.out.println(receiveMsg);
+			judgeCommand(receiveMsg);
+			socket.close();
+		}
+	}
+
+	public void judgeCommand(String receiveMsg) {
+
+		String msgArray[]= receiveMsg.substring(1, receiveMsg.length()-1).split(",");
+		for(int i =0;i<msgArray.length;i++){
+			System.out.print(msgArray[i]+" ");
+		}
+
+		// call addVirutalCharavter or addItem to DOM
+		if (receiveMsg.substring(1, 2).equals("A")) {
+//			System.out.println("ADD");
+//			DOM.addVirutalCharacter(Integer.parseInt(receiveMsg.substring(26,
+//					27)));
+//			if (Integer.parseInt(receiveMsg.substring(14, 15)) != 0)
+//				DOM.addItem(receiveMsg.substring(5, 13),
+//						Integer.parseInt(receiveMsg.substring(14, 15)), true);
+		}
+
+		// call updateVirutalCharavter or updateItem to DOM
+		else if (receiveMsg.substring(1, 2).equals("U")) {
+//			System.out.println("UPDATE");
+//			System.out.println(receiveMsg.substring(17, 18));
+//			System.out.println(receiveMsg.substring(29, 30));
+//			DOM.updateVirtualCharacter(
+//					Integer.parseInt(receiveMsg.substring(29, 30)),
+//					receiveMsg.substring(31, 32),
+//					Integer.parseInt(receiveMsg.substring(33, 37)),
+//					Integer.parseInt(receiveMsg.substring(40, 41)),
+//					Integer.parseInt(receiveMsg.substring(42, 43)));
+			// DOM.updateItem(index, shared, owner);
+		}
+	}
+
+}

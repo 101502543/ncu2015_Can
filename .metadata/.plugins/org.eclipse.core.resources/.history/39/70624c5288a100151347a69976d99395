@@ -1,0 +1,65 @@
+package cof.can.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import cof.can.udpbc.Centralized_Data_Center;
+
+import java.util.Vector;
+
+public class testCDC {
+
+	Centralized_Data_Center CDC ;
+
+	@Before
+	public void setUp() throws Exception{
+		CDC = new CDCstub();
+	}
+	
+	// test the command sent from CDC, the first element in the command must be
+	// "ADD"
+	@Test
+	public final void testCDC_ADD() {
+		Vector msgCDC = CDC.getUpdateInfo1();
+		assertEquals("ADD,ItemName,1,OwnerName,1", msgCDC.elementAt(0).toString());
+	}
+
+	// test the command sent from CDC, the first element in the command must be
+	// "UPDATE"
+	@Test
+	public final void testCDC_UPDATE() {
+		Vector msgCDC = CDC.getUpdateInfo2();
+		assertEquals("UPDATE,ItemName,1,OwnerName,1,N,10,1,1", msgCDC.elementAt(0).toString());
+	}
+
+}
+
+class CDCstub implements Centralized_Data_Center{
+
+	Vector updateInfo1 = new Vector();
+	Vector updateInfo2 = new Vector();
+	@Override
+	public Vector getUpdateInfo1() {
+		int i = 1;
+		int k = 1;
+		updateInfo1.add("ADD,ItemName," + i + ",OwnerName," + k);
+		return updateInfo1;
+	}
+
+	@Override
+	public Vector getUpdateInfo2() {
+		int j = 1;
+		int z = 1;
+		int speed = 10;
+		int locationX = 1;
+		int locationY = 1;
+		String dir;
+		dir = "N";
+		updateInfo2.add("UPDATE,ItemName," + j + ",OwnerName," + z + "," + dir
+				+ "," + speed + "," + locationX + "," + locationY);
+		return updateInfo1;
+	}
+	
+}

@@ -1,0 +1,86 @@
+package cof.can.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import cof.can.udpbc.UDP_Broadcast_Client_Module;
+import cof.can.udpus.Dynamic_Object_Module;
+import cof.can.udpus.UDP_Update_Server_Module;
+
+public class testAll {
+
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPUS;
+	DOMMock domMock;
+
+	@Before
+	public void setUp() throws Exception {
+		UDPBC = new UDPBCMock();
+		UDPUS = new UDPUSMock(8888);
+		domMock = new DOMMock();
+		//UDPBC.startUDPBroadCast();
+		//UDPUS.initUDPServer();
+	}
+
+	@Test
+	public void test() throws Exception {
+		
+		
+		
+		//test getIPOne
+		assertNotNull(UDPBC.getIPOne());
+		System.out.println(UDPBC.getIPOne());
+		//test getIPTwo
+		assertNotNull(UDPBC.getIPTwo());
+		//test getClientIPTable
+		assertNotNull(UDPBC.getClientIPTable());
+	}
+	
+//	@Test
+//	public void testUDPUS() throws Exception{
+//		assert UDPUS.judgeCommand(null);
+//	}
+
+}
+
+class UDPBCMock extends UDP_Broadcast_Client_Module {
+
+}
+
+class UDPUSMock extends UDP_Update_Server_Module {
+
+	public UDPUSMock(int openPortNum) {
+		super(openPortNum);
+		// TODO Auto-generated constructor stub
+	}
+
+}
+
+class DOMMock implements Dynamic_Object_Module {
+
+	@Override
+	public boolean addVirutalCharacter(int clientno) {
+		return true;
+	}
+
+	@Override
+	public boolean addItem(String name, int index, boolean shared) {
+		return true;
+
+	}
+
+	@Override
+	public boolean updateVirtualCharacter(int clientno, String dir, int speed,
+			int x, int y) {
+		return true;
+
+	}
+
+	@Override
+	public boolean updateItem(int index, boolean shared, String owner) {
+		return true;
+	}
+
+}

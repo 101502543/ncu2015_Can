@@ -1,0 +1,54 @@
+package ex3;
+
+// TODO: modify this to a doubly linked list
+public class LinkedListNode {
+	private int data;
+	private LinkedListNode next;
+
+	public LinkedListNode(int data) {
+		super();
+		this.data = data;
+	}
+
+	public LinkedListNode getNext() {
+		return next;
+	}
+
+	public int getData() {
+		return data;
+	}
+
+	public void add(int newData) {
+		if (next == null) {
+			next = new LinkedListNode(newData);
+		} else {
+			next.add(newData);
+		}
+	}
+
+	// TODO: after you modified this to a doubly linked list,
+	// contains() should search target in both side "next" and "prev"
+	// e.g. given list "a -> b -> c -> null" and target "a" 
+	// should return false for node "b", but its doubly version 
+	// "null <- a <-> b <-> c -> null" should return true
+	public boolean contains(int target) {
+		if (target == this.data) {
+			return true;
+		} else if (next != null) {
+			return next.contains(target);
+		}
+		return false;
+	}
+
+	// TODO: after you modified this to a doubly linked list,
+	// getLength() should return length summed up from 
+	// both side "next" and "prev"
+	// e.g. given list "a -> b -> c -> null" should return 2 for node "b"
+	// but its doubly version "null <- a <-> b <-> c -> null" should return 3
+	public int getLength() {
+		if (next == null) {
+			return 1;
+		}
+		return 1 + next.getLength();
+	}
+}

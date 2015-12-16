@@ -1,0 +1,147 @@
+package cof.can.test;
+
+import static org.junit.Assert.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import cof.can.udpbc.UDP_Broadcast_Client_Module;
+import cof.can.udpus.Dynamic_Object_Module;
+import cof.can.udpus.UDP_Update_Server_Module;
+
+public class testAll {
+
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPUS;
+	domMock mockedDom;
+	Timer timer = new Timer();
+
+	@Before
+	public void setUp() throws Exception {
+		UDPBC = new UDP_Broadcast_Client_Module();
+		mockedDom = new domMock();
+		UDPUS = new UDP_Update_Server_Module(8888, mockedDom);
+		
+	}
+
+	@Test
+	public final void testUDPUS() throws InterruptedException {
+		// run the UDPBC,UDPUS
+				timer.schedule(new control(UDPBC, UDPUS), 0, 1000);
+				Thread.sleep(2000);
+		// first, use mock to determine how to verify
+		mockedDom.set(UDPUS, new Dynamic_Object_Module() {
+			@Override
+			public void addVirtualCharacter(int clientno) {
+				assertEquals(1, clientno);
+			}
+
+			@Override
+			public void addItem(String name, int index, boolean shared) {
+				assertEquals("ItemName", name);
+			}
+
+			@Override
+			public void updateVirtualCharacter(int clientno, String dir,
+					int speed, int x, int y) {
+				assertEquals("N", dir);
+			}
+
+			@Override
+			public void updateItem(int index, boolean shared, String owner) {
+				assertEquals(1, index);
+			}
+
+		});
+
+		//add or update command
+		UDPUS.judgeCommand("[ADD,ItemName,1,OwnerName,1]");
+		UDPUS.judgeCommand("[UPDATE,ItemName,1,OwnerName,1,N,10,1,1]");
+		
+	}
+
+	@Test
+	public void test() throws Exception {
+
+		// test getIPOne
+		assertNotNull(UDPBC.getIPOne());
+		// test getIPTwo
+		assertNotNull(UDPBC.getIPTwo());
+		// test getClientIPTable
+		assertNotNull(UDPBC.getClientIPTable());
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public final void testIllegalInputNumberZero() {
+		UDPUS.judgeCommand("[UPDATE,ItemName,num,OwnerName,num,N,num,num,num]");
+	}
+
+}
+
+class control extends TimerTask {
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPUS;
+
+	public control(UDP_Broadcast_Client_Module UDPBC,
+			UDP_Update_Server_Module UDPUS) {
+		this.UDPBC = UDPBC;
+		this.UDPUS = UDPUS;
+	}
+
+	@Override
+	public void run() {
+		try {
+			UDPBC.startUDPBroadCast();
+			UDPUS.initUDPServer();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
+
+class domMock implements Dynamic_Object_Module {
+
+	public UDP_Update_Server_Module UDPUS;
+	private Dynamic_Object_Module dom;
+
+	public void set(UDP_Update_Server_Module UDPUS, Dynamic_Object_Module dom) {
+		this.UDPUS = UDPUS;
+		this.dom = dom;
+	}
+
+	@Override
+	public void addVirtualCharacter(int clientno) {
+		if (UDPUS != null && dom != null) {
+			dom.addVirtualCharacter(clientno);
+		}
+	}
+
+	@Override
+	public void addItem(String name, int index, boolean shared) {
+		if (UDPUS != null && dom != null) {
+			dom.addItem(name, index, shared);
+		}
+	}
+
+	@Override
+	public void updateVirtualCharacter(int clientno, String dir, int speed,
+			int x, int y) {
+		if (UDPUS != null && dom != null) {
+			dom.updateVirtualCharacter(clientno, dir, speed, x, y);
+		}
+	}
+
+	@Override
+	public void updateItem(int index, boolean shared, String owner) {
+		if (UDPUS != null && dom != null) {
+			dom.updateItem(index, shared, owner);
+		}
+	}
+
+}

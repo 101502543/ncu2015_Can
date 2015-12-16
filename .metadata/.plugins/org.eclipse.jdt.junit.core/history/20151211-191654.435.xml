@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="testCDC" project="UDP_Can" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="cof.can.udpbc.test.testCDC" time="0.003">
+    <testcase name="testCDC_ADD" classname="cof.can.udpbc.test.testCDC" time="0.002"/>
+    <testcase name="testCDC_UPDATE" classname="cof.can.udpbc.test.testCDC" time="0.001"/>
+  </testsuite>
+</testrun>

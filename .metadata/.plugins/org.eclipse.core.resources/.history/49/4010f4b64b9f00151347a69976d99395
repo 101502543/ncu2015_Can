@@ -1,0 +1,19 @@
+package cof.can.udpbc;
+
+import static org.junit.Assert.*;
+
+import java.util.Vector;
+
+import org.junit.Test;
+
+public class udpbc_Test {
+	Centralized_Data_Center CDC = new Centralized_Data_Center();
+	TCP_Server_module TCPSM = new TCP_Server_module();
+	UDP_Broadcast_Client_Module UDPBC = new UDP_Broadcast_Client_Module();
+
+	@Test
+	public void testCDC() {
+		Vector test = CDC.getUpdateInfo();
+			assert (test.elementAt(0).toString().substring(1, 2)=="A"||test.elementAt(0).toString().substring(1, 2)=="U");
+		}
+}

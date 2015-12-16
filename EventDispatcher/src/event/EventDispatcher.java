@@ -1,58 +1,30 @@
 package event;
-
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-
 import javax.swing.event.MouseInputListener;
 
-public class EventDispatcher implements MouseInputListener, KeyListener {
-	
-	private void printEvent(String description, ComponentEvent e){
-		Screen eventScreen = (Screen)e.getSource();
-		System.out.println("\""+eventScreen.getName()+": "+description+"\"");
-	}
-
+abstract class EventDispatcher implements MouseInputListener, KeyListener {	
 	@Override
-	public void keyTyped(KeyEvent e) {
-		printEvent("keyboard input", e);
-	}
+	public void keyTyped(KeyEvent e) {}	
 	@Override
-	public void keyPressed(KeyEvent e) {
-		//printEvent("key pressed", e);
-	}
+	public void keyPressed(KeyEvent e) {}	
 	@Override
-	public void keyReleased(KeyEvent e) {
-		//printEvent("key released", e);
-	}
-
+	public void keyReleased(KeyEvent e) {}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		printEvent("mouse click", e);
-	}
+	public void mouseClicked(MouseEvent e) {}	
 	@Override
-	public void mousePressed(MouseEvent e) {
-		printEvent("mouse down", e);
-	}
+	public void mousePressed(MouseEvent e) {}	
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		printEvent("mouse drag", e);		
-	}
+	public void mouseDragged(MouseEvent e) {}	
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		printEvent("mouse release", e);
-	}
+	public void mouseReleased(MouseEvent e) {}	
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		//printEvent("mouse entered", e);
-	}
+	public void mouseEntered(MouseEvent e) {}	
 	@Override
-	public void mouseExited(MouseEvent e) {
-		//printEvent("mouse exited", e);
-	}
+	public void mouseExited(MouseEvent e) {}	
 	@Override
-	public void mouseMoved(MouseEvent e) {
-	}
+	public void mouseMoved(MouseEvent e) {}
 }
+

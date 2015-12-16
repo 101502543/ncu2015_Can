@@ -1,0 +1,30 @@
+package cof.can.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import cof.can.udpbc.UDP_Broadcast_Client_Module;
+import cof.can.udpus.UDP_Update_Server_Module;
+
+public class testUDPBC {
+
+	UDP_Broadcast_Client_Module UDPBC;
+	UDP_Update_Server_Module UDPSM;
+	
+	
+	@Test
+	public void test() throws Exception {
+		
+	}
+
+}
+
+
+class UDPBCMock extends UDP_Broadcast_Client_Module{
+	
+}
+
+class UDPSMMock extends UDP_Update_Server_Module{
+	
+}

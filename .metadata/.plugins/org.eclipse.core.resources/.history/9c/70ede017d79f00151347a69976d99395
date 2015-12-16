@@ -1,0 +1,14 @@
+package cof.can.udpbc.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class testUDPBC {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -1,0 +1,20 @@
+package cof.can.udpbc;
+
+import java.util.Vector;
+
+public class Centralized_Data_Center {
+
+	public Vector updateInfo1 = new Vector();
+	public Vector updateInfo2 = new Vector();
+	
+	public Vector getUpdateInfo1(){
+		updateInfo1.add("ADD,ItemNumber,1,OwnerNum,1");
+		return updateInfo1;
+	}
+	public Vector getUpdateInfo2(){
+		updateInfo2.add("UPDATE,ItemNumber,1,OwnerNum,1");
+		return updateInfo2;
+	}
+	
+}
+

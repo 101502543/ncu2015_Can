@@ -1,0 +1,54 @@
+package cof.can.udpus;
+
+import java.net.*;
+
+public class UDP_Update_Server_Module   {
+	int port;// connection port
+	boolean judgeOrNot;
+    
+	private Dynamic_Object_Module dom;
+	
+	public UDP_Update_Server_Module(int openPortNum,Dynamic_Object_Module dom) {
+		port = openPortNum; // set the port
+		this.dom=dom;
+		
+	}
+	public void initUDPServer() throws Exception{
+		run(); // execute the server
+	}
+
+	public void run() throws Exception {
+		final int msgSize = 8000; // message MAX size 8000.
+		byte buffer[] = new byte[msgSize]; // set the message buffer
+
+		while (true) {
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+			// set the receive UDP server
+			DatagramSocket socket = new DatagramSocket(port);
+			socket.receive(packet); // receive packet。
+			// transfer the receive message to String。
+			String receiveMsg = new String(buffer, 0, packet.getLength());
+			System.out.println(receiveMsg);
+			judgeCommand(receiveMsg);
+			socket.close();
+		}
+	}
+
+	public void judgeCommand(String receiveMsg) {
+         
+		
+		String msgArray[] = receiveMsg.substring(1, receiveMsg.length() - 1)
+				.split(",");
+		if (receiveMsg.substring(1, 2).equals("A")) {
+			dom.addVirtualCharacter(Integer.parseInt(msgArray[4]));
+			dom.addItem(msgArray[1], Integer.parseInt(msgArray[2]), true);
+		} else {
+			dom.updateVirtualCharacter(Integer.parseInt(msgArray[4]), msgArray[5],
+					Integer.parseInt(msgArray[6]),
+					Integer.parseInt(msgArray[7]),
+					Integer.parseInt(msgArray[8]));
+			dom.updateItem(Integer.parseInt(msgArray[2]), true, msgArray[3]);
+		}
+	}
+
+}

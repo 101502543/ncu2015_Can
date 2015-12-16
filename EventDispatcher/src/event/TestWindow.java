@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class TestWindow extends JFrame{
+public class TestWindow extends JFrame {
 	private int separatorSize = 5;
 	private int screenNum = 9;
 	private int[][] screenSize = {{800, 455},
@@ -46,7 +46,7 @@ public class TestWindow extends JFrame{
 	private void initComponent(){
 		initScreenLocation();
 		screenFactory = new ScreenFactory();
-		eventDispatcher = new EventDispatcher();
+		eventDispatcher = new MyEventDispatcherForA();
 		screenSet = screenFactory.createScreen(screenNum, screenSize, screenColor);
 		for(int i=0; i<screenNum; i++){
 			int tmpLocationX = screenLocation[i][0];

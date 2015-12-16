@@ -1,0 +1,24 @@
+package cof.can.udpbc.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import cof.can.udpbc.Centralized_Data_Center;
+
+import java.util.Vector;
+
+public class testCDC {
+
+	Centralized_Data_Center CDC = new Centralized_Data_Center();
+
+	// test the command sent from CDC, the first element in the command must be
+	// "ADD" or "UPDATE"
+	@Test
+	public void testCDC() {
+		Vector msgCDC = CDC.getUpdateInfo();
+		System.out.println(msgCDC.elementAt(0).toString().substring(0, 1));
+		assertEquals("U", msgCDC.elementAt(0).toString().substring(0, 1));
+	}
+
+}
