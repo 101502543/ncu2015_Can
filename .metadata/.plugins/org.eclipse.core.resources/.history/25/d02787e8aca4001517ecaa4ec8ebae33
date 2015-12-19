@@ -1,0 +1,29 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SRETest {
+
+	@Test
+	public void testGetInstance() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSceneRenderEngine() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRenderScene() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testPaintComponentsGraphics() {
+		fail("Not yet implemented");
+	}
+
+}

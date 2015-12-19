@@ -1,0 +1,15 @@
+package cot.qin.sdm;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SDMTest {
+	SceneDataModule sdm = SceneDataModule.getInstance();
+	@Test
+	public void testLoadMap() {
+		fail("Not yet implemented");
+		sdm.loadMap("mapfile.txt");
+	}
+
+}

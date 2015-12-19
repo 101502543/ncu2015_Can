@@ -1,0 +1,25 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.*;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import org.junit.Test;
+
+import portotype_e.Main;
+
+public class SRETest {
+
+	@Test
+	public void testRenderScene() {
+		SceneRenderEngine sre = SceneRenderEngine.getInstance();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Main main = new Main();
+			}
+		});
+	}
+
+}

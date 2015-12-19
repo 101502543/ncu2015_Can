@@ -1,0 +1,16 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SRETest {
+
+	SceneRenderEngine sre = SceneRenderEngine.getInstance();
+	@Test
+	public void testRenderScene() {
+		fail("Not yet implemented");
+		sre.renderScene();
+	}
+
+}

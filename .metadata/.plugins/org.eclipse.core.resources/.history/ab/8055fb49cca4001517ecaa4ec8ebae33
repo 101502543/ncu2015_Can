@@ -1,0 +1,28 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.*;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import org.junit.Test;
+
+import portotype_e.Main;
+
+public class SRETest extends JFrame {
+
+	@Test
+	public void testRenderScene() {
+		SceneRenderEngine sre = SceneRenderEngine.getInstance();
+		add(sre);
+		sre.setFocusable(true);
+
+		setTitle("Clash of Tower"); 
+		setSize(1000, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		setVisible(true);
+
+		// sre.renderScene();
+	}
+
+}

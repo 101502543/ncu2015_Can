@@ -1,0 +1,48 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.assertEquals;
+
+import javax.swing.JFrame;
+
+import org.junit.Test;
+
+public class SRETest extends JFrame {
+
+	@Test
+	public void testRenderScene() {
+		SceneRenderEngine sre = SceneRenderEngine.getInstance();
+		DOMmok dom = DOMmok.getInstance();
+		add(sre);
+		sre.setFocusable(true);
+
+		setTitle("Clash of Tower"); 
+		setSize(1000, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		setVisible(true);
+		assertEquals(false, sre.outOfBoundXY);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sre.renderScene();
+		assertEquals(false, sre.outOfBoundXY);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dom.setXY(10, 30);
+		sre.renderScene();
+		assertEquals(false, sre.outOfBoundXY);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

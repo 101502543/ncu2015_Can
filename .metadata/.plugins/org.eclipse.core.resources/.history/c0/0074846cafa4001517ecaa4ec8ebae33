@@ -1,0 +1,17 @@
+package cot.qin.sdm;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SDMTest {
+	@Test
+	public void testLoadMap() {
+		SceneDataModule sdm = SceneDataModule.getInstance();
+		sdm.loadMap("mapfile");
+		assertEquals(false, sdm.notFound);
+		sdm.loadMap("notfound");
+		assertEquals(true, sdm.notFound);
+	}
+
+}

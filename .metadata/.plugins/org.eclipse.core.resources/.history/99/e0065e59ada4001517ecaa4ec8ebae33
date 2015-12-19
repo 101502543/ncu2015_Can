@@ -1,0 +1,20 @@
+package cot.qin.sre;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SRETest {
+
+
+	@Test
+	public void testRenderScene() {
+		fail("Not yet implemented");
+		int[] XY = DOMmok.getInstance().getVirtualCharacterXY();
+		X = XY[0];
+		Y = XY[1];
+	}
+
+
+
+}

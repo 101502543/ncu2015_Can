@@ -1,0 +1,43 @@
+package cot.qin.sdm;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+public class SceneDataModule {
+	private Map map;
+	public boolean	notFound = false;
+	public static SceneDataModule sdm = null;
+	
+	public static SceneDataModule getInstance(){
+		if(sdm == null)
+			sdm = new SceneDataModule();
+		return sdm;
+	}
+	
+	public void loadMap(String mapfile) {
+		map = new Map();
+		BasicBlock[][] scene = new BasicBlock[50][50];
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(mapfile + ".txt"));
+			for (int i = 0; i < scene.length; i++) {
+				String input = bufferedReader.readLine();
+				String[] strings = input.split(" ");
+				for (int j = 0; j < scene[0].length; j++) {
+					int imageIndex = Integer.parseInt(strings[j];
+					scene[i][j] = new BasicBlock());
+				}
+			}
+			map.setScene(scene);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			notFound = true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+	}
+	public Map getMap() {
+		return map;
+	}
+}

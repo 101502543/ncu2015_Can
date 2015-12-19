@@ -2,3 +2,14 @@
 1449987724376	Rename field 'yInButton'
 1450246072926	Rename field 'frameSizeY'
 1450246079666	Rename field 'frameSizeX'
+1450281243117	Rename resource 'map.txt'
+1450289071322	Rename field 'imageWidth'
+1450289471773	Rename local variable 'i'
+1450289479810	Rename local variable 'x'
+1450289483913	Rename local variable 'j'
+1450344678461	Copy compilation unit
+1450344689440	Delete element
+1450344865374	Copy compilation unit
+1450344870371	Copy compilation unit
+1450344879999	Delete elements
+1450350519391	Rename field 'flag'

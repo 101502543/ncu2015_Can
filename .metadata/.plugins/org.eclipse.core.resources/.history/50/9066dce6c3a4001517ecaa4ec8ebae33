@@ -1,0 +1,15 @@
+package cot.qin.sre;
+
+public class DOMmok {
+	public static DOMmok domMok = null;
+	private int X,Y;
+	public static DOMmok getInstance() {
+		if (domMok == null)
+			domMok = new DOMmok();
+		return domMok;
+	}
+
+	public int[] getVirtualCharacterXY() {
+		return new int[] { 0, 0 };
+	}
+}

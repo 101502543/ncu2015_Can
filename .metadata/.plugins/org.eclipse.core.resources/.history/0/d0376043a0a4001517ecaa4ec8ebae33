@@ -1,0 +1,13 @@
+
+public class DOMmok {
+public static DOMmok domMoke = null;
+	
+	public static DOMmok getInstance(){
+		if(domMoke == null)
+			domMoke = new SceneDataModule();
+		return domMoke;
+	}
+	public int[] getVirtualCharacterXY() {
+		return {0,0};
+	}
+}

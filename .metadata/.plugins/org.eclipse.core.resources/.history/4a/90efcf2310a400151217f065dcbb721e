@@ -1,0 +1,29 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+public class SceneDataModule {
+	Map map;
+	
+	public void loadMap(String mapfile) {
+		BasicBlock[][] scene = new BasicBlock[50][50];
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(mapfile + ".txt"));
+			for (int i = 0; i < scene.length; i++) {
+				String input = bufferedReader.readLine();
+				String[] strings = input.split(" ");
+				for (int j = 0; j < scene[0].length; j++) {
+					scene[i][j] = new BasicBlock(Integer.parseInt(strings[j]));
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

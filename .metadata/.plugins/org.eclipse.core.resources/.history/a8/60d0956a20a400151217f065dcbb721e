@@ -1,0 +1,112 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.ImageObserver;
+
+import javax.swing.ImageIcon;
+
+public class SceneRenderEngine {
+	private Map map;
+	private int X, Y;
+	private int windowSize = 21;
+	private int panelSizeX = 1000, panelSizeY = 450;
+	private int imageSize = 100;
+	private int zeroX, zeroY; // window position
+	private int[] nextColumn = { 48, 32 }, nextRow = { -48, 32 };
+	private final int coordinateX = panelSizeX / 2 - imageSize,
+			coordinateY = 0 - panelSizeY;
+
+	// private int xInPress, yInPress, xInDrag, yInDrag, old_zeroX, old_zeroY;
+
+	public void renderScene(Graphics g) {
+		// call getVirtualCharacterXY()
+		X = 0;
+		Y = 0;
+		getWindow();
+		int theX = zeroX, theY = zeroY;
+		for (int y = Y; y < Y + windowSize; y++) {
+			for (int j = X; j < X + windowSize; j++) {
+				ImageIcon test = new ImageIcon(map.getBlockImage(y, j));
+				Image img = test.getImage();
+				g.drawImage(img, theX + (j - X) * nextColumn[0], theY + (j - X)
+						* nextColumn[1], imageSize, imageSize,
+						(ImageObserver) this);
+			}
+			theX = zeroX + (y - Y) * nextRow[0];
+			theY = zeroY + (y - Y) * nextRow[1];
+		}
+	}
+
+	private void getWindow() {
+		int oldX = X;
+		int oldY = Y;
+		isbound();
+		resetXY();
+		if (X < 0 || Y < 0 || X + windowSize - 1 == 50
+				|| Y + windowSize - 1 == 50) {
+			X = oldX;
+			Y = oldY;
+		}
+	}
+
+	private void isbound() {
+		if (X == 0) {
+			if (zeroX > coordinateX) {
+				zeroX = coordinateX;
+			}
+			if (zeroY > coordinateY) {
+				zeroY = coordinateY;
+			}
+		}
+		if (Y == 0) {
+			if (zeroX < coordinateX) {
+				zeroX = coordinateX;
+			}
+			if (zeroY > coordinateY) {
+				zeroY = coordinateY;
+			}
+		}
+		if (X + windowSize - 1 == 49) {
+			if (zeroX < coordinateX) {
+				zeroX = coordinateX;
+			}
+			if (zeroY < coordinateY) {
+				zeroY = coordinateY;
+			}
+		}
+		if (Y + windowSize - 1 == 49) {
+			if (zeroX > coordinateX) {
+				zeroX = coordinateX;
+			}
+			if (zeroY < coordinateY) {
+				zeroY = coordinateY;
+			}
+		}
+	}
+
+	private void resetXY() {
+		if (Math.abs(zeroX - coordinateX) >= 100) {
+			if (zeroX > coordinateX) {
+				X -= 1;
+				Y += 1;
+				zeroX -= 100;
+			} else {
+				X += 1;
+				Y -= 1;
+				zeroX += 100;
+			}
+			// xInPress = xInDrag;
+		}
+		if (Math.abs(zeroY - coordinateY) >= 75) {
+			if (zeroY > coordinateY) {
+				X -= 1;
+				Y -= 1;
+				zeroY -= 75;
+			} else {
+				X += 1;
+				Y += 1;
+				zeroY += 75;
+			}
+			// yInPress = yInDrag;
+		}
+	}
+}
