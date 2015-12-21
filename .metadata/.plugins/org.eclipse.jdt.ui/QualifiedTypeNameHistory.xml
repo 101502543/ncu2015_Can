@@ -21,10 +21,15 @@
 <fullyQualifiedTypeName name="SceneDataModule"/>
 <fullyQualifiedTypeName name="DOMmok"/>
 <fullyQualifiedTypeName name="cot.qin.sre.SceneRenderEngine"/>
-<fullyQualifiedTypeName name="cot.qin.sdm.SceneDataModule"/>
 <fullyQualifiedTypeName name="java.awt.Frame"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="org.junit.Test"/>
 <fullyQualifiedTypeName name="cot.qin.sre.SRETest"/>
 <fullyQualifiedTypeName name="cot.qin.sre.DOMmok"/>
+<fullyQualifiedTypeName name="cot.qin.sre.SRETest.Panel"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="java.util.function.IntPredicate"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="cot.qin.sdm.SceneDataModule"/>
 </qualifiedTypeNameHistroy>

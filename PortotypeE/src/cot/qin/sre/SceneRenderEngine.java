@@ -1,24 +1,17 @@
 package cot.qin.sre;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import cot.qin.sdm.SceneDataModule;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-import cot.qin.sdm.*;
-
-public class SceneRenderEngine extends JPanel {
+public class SceneRenderEngine {
 	private static SceneDataModule sdm = null;
 	private static DOMmok domMok = null;
-	private Map map;
 	private int X = 0, Y = 0;
 	private int windowSize = 21;
 	private int panelSizeX = 1000, panelSizeY = 450;
-	private int imageSize = 100;
+	private int imageSizeX = 100, imageSizeY = 114;
 	private int zeroX, zeroY; // window position
-	private int[] nextColumn = { 48, 32 }, nextRow = { -48, 32 };
-	private final int coordinateX = panelSizeX / 2 - imageSize,
+	private int[] nextColumn = { 48, 36 }, nextRow = { -48, 36 };
+	private final int coordinateX = panelSizeX / 2 - imageSizeX,
 			coordinateY = 0 - panelSizeY;
 	public boolean outOfBoundXY = false;
 	// private int xInPress, yInPress, xInDrag, yInDrag, old_zeroX, old_zeroY;
@@ -34,7 +27,6 @@ public class SceneRenderEngine extends JPanel {
 		// TODO Auto-generated constructor stub
 		sdm = SceneDataModule.getInstance();
 		sdm.loadMap("mapfile");
-		map = sdm.getMap();
 		domMok = DOMmok.getInstance();
 	}
 
@@ -49,25 +41,25 @@ public class SceneRenderEngine extends JPanel {
 			outOfBoundXY = true;
 			return;
 		}
-		repaint();
 	}
 
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public int[] getWindowInf() {
 
 		getWindow();
-		int theX = zeroX, theY = zeroY;
-		for (int y = Y; y < Y + windowSize; y++) {
-			for (int x = X; x < X + windowSize; x++) {
-				ImageIcon test = new ImageIcon(map.getBlockImage(x, y));
-				Image img = test.getImage();
-				g.drawImage(img, theX + (x - X) * nextColumn[0], theY + (x - X)
-						* nextColumn[1], imageSize, imageSize, this);
-			}
-			theX = zeroX + (y - Y) * nextRow[0];
-			theY = zeroY + (y - Y) * nextRow[1];
-		}
+		int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
+				nextColumn[1], nextRow[0], nextRow[1], imageSizeX, imageSizeY };
+		// int theX = zeroX, theY = zeroY;
+		// for (int y = Y; y < Y + windowSize; y++) {
+		// for (int x = X; x < X + windowSize; x++) {
+		// ImageIcon test = new ImageIcon(map.getBlockImage(x, y));
+		// Image img = test.getImage();
+		// g.drawImage(img, theX + (x - X) * nextColumn[0], theY + (x - X)
+		// * nextColumn[1], imageSize, imageSize, panel);
+		// }
+		// theX = zeroX + (y - Y) * nextRow[0];
+		// theY = zeroY + (y - Y) * nextRow[1];
+		// }
+		return information;
 	}
 
 	private void getWindow() {
@@ -141,6 +133,42 @@ public class SceneRenderEngine extends JPanel {
 				zeroY += 75;
 			}
 			// yInPress = yInDrag;
+		}
+	}
+
+	public void setZeroX(int x) {
+		zeroX += x;
+	}
+
+	public void setZeroY(int y) {
+		zeroY += y;
+	}
+
+	public boolean inWindow(int x, int y) {
+		if (x > X * 100 && x < (X + 21) * 100 && y > Y * 100
+				&& y < (Y + 21) * 100) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int[] changeXY(int[] xy) {
+		int[] information = sre.getWindowInf();
+		// int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
+		// nextColumn[1], nextRow[0], nextRow[1], imageSize };
+		if (inWindow(xy[0], xy[1])) {
+			int windowX = xy[0];
+			int windowY = xy[1];
+			if (information[2] != 0)
+				windowX = windowX % information[2];
+			if (information[3] != 0)
+				windowY = windowY % information[3];
+			int finalX = 400 + windowX * 4 / 5 - windowY * 4 / 5;
+			int finalY = 100 + windowX * 3 / 5 + windowY * 3 / 5;
+			return new int[] { finalX, finalY };
+		} else {
+			return null;
 		}
 	}
 }

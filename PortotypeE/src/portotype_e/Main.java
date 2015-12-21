@@ -1,9 +1,16 @@
 package portotype_e;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import cot.qin.sdm.SceneDataModule;
+import cot.qin.sre.SceneRenderEngine;
 
 public class Main extends JFrame {
 
@@ -20,7 +27,7 @@ public class Main extends JFrame {
 
 	public Main() {
 		// TODO Auto-generated constructor stub
-		ContentPanel cp = new ContentPanel();
+		MyPanel cp = new MyPanel();
 		add(cp);
 		cp.setFocusable(true);
 
@@ -30,4 +37,27 @@ public class Main extends JFrame {
 		setVisible(true);
 	}
 
+}
+class MyPanel extends JPanel{
+	SceneRenderEngine sre = SceneRenderEngine.getInstance();
+	SceneDataModule sdm = SceneDataModule.getInstance();
+
+	@Override
+	public void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		int[] information = sre.getWindowInf();
+//		int[] information = {zeroX,zeroY,X,Y,windowSize,nextColumn[0],nextColumn[1],nextRow[0],nextRow[1],imageSize};
+		int theX = information[0], theY = information[1];
+		for (int y = information[3]; y < information[3] + information[4]; y++) {
+			for (int x = information[2]; x < information[2] + information[4]; x++) {
+				ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(x, y));
+				Image img = test.getImage();
+				g.drawImage(img, theX + (x - information[2]) * information[5], theY + (x - information[2])
+						* information[6], information[9], information[9], this);
+			}
+			theX = information[0] + (y - information[3]) * information[7];
+			theY = information[1] + (y - information[3]) * information[8];
+		}
+	}
 }

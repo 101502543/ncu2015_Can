@@ -1,0 +1,62 @@
+package portotype_e;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import cot.qin.sdm.SceneDataModule;
+import cot.qin.sre.SceneRenderEngine;
+
+public class Main extends JFrame {
+
+	private int frameSizeX = 1000, frameSizeY = 600;
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Main main = new Main();
+			}
+		});
+	}
+
+	public Main() {
+		// TODO Auto-generated constructor stub
+		MyPanel cp = new MyPanel();
+		add(cp);
+		cp.setFocusable(true);
+
+		setTitle("Clash of Tower"); // 設定標題
+		setSize(frameSizeX, frameSizeY); // 設定大小
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 設定右上角關閉鍵結束程式
+		setVisible(true);
+	}
+
+}
+class MyPanel extends JPanel{
+	SceneRenderEngine sre = SceneRenderEngine.getInstance();
+	SceneDataModule sdm = SceneDataModule.getInstance();
+	@Override
+	public void paintComponents(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponents(g);
+		int[] information = sre.paintMap();
+//		int[] information = {zeroX,zeroY,X,Y,windowSize,nextColumn[0],nextColumn[1],nextRow[0],nextRow[1],imageSize};
+		int theX = information[0], theY = information[1];
+		for (int y = information[3]; y < information[3] + information[4]; y++) {
+			for (int x = information[2]; x < information[2] + information[4]; x++) {
+				ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(x, y));
+				Image img = test.getImage();
+				g.drawImage(img, theX + (x - information[2]) * information[5], theY + (x - information[2])
+						* information[6], information[9], information[9], this);
+			}
+			theX = information[0] + (y - information[3]) * information[7];
+			theY = information[1] + (y - information[3]) * information[8];
+		}
+	}
+}
