@@ -1,0 +1,15 @@
+1. Unit: testCollision還沒實作  要問rectengle
+2. Coordinate : 很多方法沒做完
+3. Tower : 有三個技能 還要討論參數
+4. Parameter 很多參數要討論  
+5. Messenger : 還有一個方法實作(好像可以不用)
+6. CapitalCity : 六種skill要實作
+8. updateThread: 更新錢 HP 
+9. EXUtility : addUnit,  startGame  calltowerskill
+//10. SNGemerator
+//11. Tower 只會擁有一座 或零做
+//12 .addPlayer要順便addTower
+
+
+OTHER
+1. 罐頭的UDP要可以傳STRING
