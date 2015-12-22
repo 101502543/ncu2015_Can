@@ -1,5 +1,9 @@
 package cot.qin.sre;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 import cot.qin.sdm.SceneDataModule;
 
 public class SceneRenderEngine {
@@ -154,19 +158,31 @@ public class SceneRenderEngine {
 	}
 
 	public int[] changeXY(int[] xy) {
+		int objectX = 0, objectY = -36;
 		int[] information = sre.getWindowInf();
 		// int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
 		// nextColumn[1], nextRow[0], nextRow[1], imageSize };
 		if (inWindow(xy[0], xy[1])) {
-			int windowX = xy[0];
-			int windowY = xy[1];
-			if (information[2] != 0)
-				windowX = windowX % information[2];
-			if (information[3] != 0)
-				windowY = windowY % information[3];
-			int finalX = 400 + windowX * 4 / 5 - windowY * 4 / 5;
-			int finalY = 100 + windowX * 3 / 5 + windowY * 3 / 5;
-			return new int[] { finalX, finalY };
+			double blockX = xy[0] / 100;
+			double blockY = xy[1] / 100;
+			double blockX_tran = information[0] + (blockY - 1 - information[3])
+					* information[7] + (blockX - information[2])
+					* information[5];
+			double blockY_tran = information[1] + (blockY - 1 - information[3])
+					* information[8] + (blockX - information[2])
+					* information[6];
+			blockX = (xy[0] - blockX * 100);
+			blockY = (xy[1] - blockY * 100);
+			blockX_tran = blockX_tran + (blockX * 4 / 5 - blockY * 4 / 5) * 0.6;
+			blockY_tran = blockY_tran + (blockX * 3 / 5 + blockY * 3 / 5) * 0.6;
+			// if (information[2] != 0)
+			// windowX = windowX % information[2];
+			// if (information[3] != 0)
+			// windowY = windowY % information[3];
+			// int finalX = information[0]+windowX * 4 / 5 - windowY * 4 / 5;
+			// int finalY = information[1]+windowX * 3 / 5 + windowY * 3 / 5;
+			return new int[] { objectX + (int) blockX_tran,
+					objectY + (int) blockY_tran };
 		} else {
 			return null;
 		}

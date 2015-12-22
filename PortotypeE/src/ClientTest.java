@@ -9,11 +9,9 @@ public class ClientTest {
 	DOMmok dom = DOMmok.getInstance();
 	ThePanel panel = ThePanel.getInstance();
 	JFrame frame = new JFrame();
-	int[][] testmove = { { 110, 190 }, { 110, 180 }, { 110, 170 },
-			{ 110, 160 }, { 110, 150 }, { 110, 140 }, { 110, 130 },
-			{ 110, 120 }, { 110, 110 }, { 110, 100 }, { 110, 90 }, { 110, 80 },
-			{ 110, 70 }, { 110, 60 }, { 110, 50 }, { 120, 50 }, { 130, 50 },
-			{ 140, 50 }, { 150, 50 }, { 160, 50 }, { 170, 50 } };
+	int[][] testmove = { { 1000, 1500 }, { 1000, 1450 }, { 1000, 1400 },
+			{ 1000, 1350 }, { 1000, 1300 }, { 1000, 1250 }, { 1000, 1200 },
+			{ 1000, 1150 }, { 1000, 1100 }, { 1000, 1050 }, { 1000, 1000 } };
 
 	public ClientTest() {
 		// TODO Auto-generated constructor stub

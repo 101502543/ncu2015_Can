@@ -75,13 +75,13 @@ public class ThePanel extends JPanel {
 		}
 
 		// move test
-		ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(0, 0));
+		ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(25, 25));
 		Image img = test.getImage();
 		g.drawImage(img, testX, testY, information[9], information[10], this);
 
 	}
 
-	int testX, testY;
+	int testX = 110, testY = 50;
 
 	public void moveTest(int[] xy) {
 		xy = sre.changeXY(xy);
