@@ -22,10 +22,12 @@ public class SceneRenderEngine {
 			sre = new SceneRenderEngine();
 		return sre;
 	}
+
 	public void iniXY(int[] xy) {
 		X = xy[0];
 		Y = xy[1];
 	}
+
 	public SceneRenderEngine() {
 		// TODO Auto-generated constructor stub
 		sdm.loadMap("mapfile");
@@ -187,5 +189,17 @@ public class SceneRenderEngine {
 		} else {
 			return null;
 		}
+	}
+
+	public void onRoad(int[] xy) {
+		int[] information = sre.getWindowInf();
+		// int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
+		// nextColumn[1], nextRow[0], nextRow[1], imageSize };
+		
+		int x = xy[0], y = xy[1];
+		x -= information[0];
+		y -= information[1];
+		x /= 48;
+		y /= 36;
 	}
 }

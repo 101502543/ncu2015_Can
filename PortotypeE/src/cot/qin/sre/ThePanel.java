@@ -40,8 +40,7 @@ public class ThePanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				sre.renderScene(e);
-				repaint();
-				// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				repaint();// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				// sre.setZeroY(-25);
 				// } else if (e.getKeyCode() == KeyEvent.VK_UP) {
 				// sre.setZeroY(+25);
