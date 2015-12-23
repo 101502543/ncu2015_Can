@@ -1,57 +1,63 @@
 package cot.qin.sre;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
+import java.awt.event.KeyEvent;
 
 import cot.qin.sdm.SceneDataModule;
 
 public class SceneRenderEngine {
-	private static SceneDataModule sdm = null;
-	private static DOMmok domMok = null;
+	public static SceneRenderEngine sre = null;
+	private SceneDataModule sdm = SceneDataModule.getInstance();
 	private int X = 0, Y = 0;
 	private int windowSize = 21;
 	private int panelSizeX = 1000, panelSizeY = 450;
 	private int imageSizeX = 100, imageSizeY = 114;
 	private int zeroX, zeroY; // window position
 	private int[] nextColumn = { 48, 36 }, nextRow = { -48, 36 };
-	private final int coordinateX = panelSizeX / 2 - imageSizeX,
-			coordinateY = 0 - panelSizeY;
+	private final int coordinateX = panelSizeX / 2 - imageSizeX, coordinateY = 0 - panelSizeY;
 	public boolean outOfBoundXY = false;
 	// private int xInPress, yInPress, xInDrag, yInDrag, old_zeroX, old_zeroY;
-	public static SceneRenderEngine sre = null;
 
 	public static SceneRenderEngine getInstance() {
 		if (sre == null)
 			sre = new SceneRenderEngine();
 		return sre;
 	}
-
+	public void iniXY(int[] xy) {
+		X = xy[0];
+		Y = xy[1];
+	}
 	public SceneRenderEngine() {
 		// TODO Auto-generated constructor stub
-		sdm = SceneDataModule.getInstance();
 		sdm.loadMap("mapfile");
-		domMok = DOMmok.getInstance();
 	}
 
-	public void renderScene() {
-		int oldx = X, oldy = Y;
-		int[] XY = domMok.getVirtualCharacterXY();
-		X = XY[0];
-		Y = XY[1];
-		if (X < 0 || Y < 0 || X + 20 > 49 || Y + 20 > 49) {
-			X = oldx;
-			Y = oldy;
-			outOfBoundXY = true;
-			return;
+	public void renderScene(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			sre.setZeroY(-25);
+		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+			sre.setZeroY(+25);
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			sre.setZeroX(-25);
+		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			sre.setZeroX(+25);
 		}
+		// int oldx = X, oldy = Y;
+		// int[] XY = domMok.getVirtualCharacterXY();
+		// X = XY[0];
+		// Y = XY[1];
+		// if (X < 0 || Y < 0 || X + 20 > 49 || Y + 20 > 49) {
+		// X = oldx;
+		// Y = oldy;
+		// outOfBoundXY = true;
+		// return;
+		// }
 	}
 
 	public int[] getWindowInf() {
 
 		getWindow();
-		int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
-				nextColumn[1], nextRow[0], nextRow[1], imageSizeX, imageSizeY };
+		int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0], nextColumn[1], nextRow[0], nextRow[1],
+				imageSizeX, imageSizeY };
 		// int theX = zeroX, theY = zeroY;
 		// for (int y = Y; y < Y + windowSize; y++) {
 		// for (int x = X; x < X + windowSize; x++) {
@@ -71,8 +77,7 @@ public class SceneRenderEngine {
 		int oldY = Y;
 		isbound();
 		resetXY();
-		if (X < 0 || Y < 0 || X + windowSize - 1 == 50
-				|| Y + windowSize - 1 == 50) {
+		if (X < 0 || Y < 0 || X + windowSize - 1 == 50 || Y + windowSize - 1 == 50) {
 			X = oldX;
 			Y = oldY;
 		}
@@ -148,9 +153,8 @@ public class SceneRenderEngine {
 		zeroY += y;
 	}
 
-	public boolean inWindow(int x, int y) {
-		if (x > X * 100 && x < (X + 21) * 100 && y > Y * 100
-				&& y < (Y + 21) * 100) {
+	public boolean inWindow(int[] xy) {
+		if (xy[0] > X * 100 && xy[0] < (X + 21) * 100 && xy[1] > Y * 100 && xy[1] < (Y + 21) * 100) {
 			return true;
 		} else {
 			return false;
@@ -162,15 +166,13 @@ public class SceneRenderEngine {
 		int[] information = sre.getWindowInf();
 		// int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
 		// nextColumn[1], nextRow[0], nextRow[1], imageSize };
-		if (inWindow(xy[0], xy[1])) {
+		if (inWindow(xy)) {
 			double blockX = xy[0] / 100;
 			double blockY = xy[1] / 100;
-			double blockX_tran = information[0] + (blockY - 1 - information[3])
-					* information[7] + (blockX - information[2])
-					* information[5];
-			double blockY_tran = information[1] + (blockY - 1 - information[3])
-					* information[8] + (blockX - information[2])
-					* information[6];
+			double blockX_tran = information[0] + (blockY - 1 - information[3]) * information[7]
+					+ (blockX - information[2]) * information[5];
+			double blockY_tran = information[1] + (blockY - 1 - information[3]) * information[8]
+					+ (blockX - information[2]) * information[6];
 			blockX = (xy[0] - blockX * 100);
 			blockY = (xy[1] - blockY * 100);
 			blockX_tran = blockX_tran + (blockX * 4 / 5 - blockY * 4 / 5) * 0.6;
@@ -181,8 +183,7 @@ public class SceneRenderEngine {
 			// windowY = windowY % information[3];
 			// int finalX = information[0]+windowX * 4 / 5 - windowY * 4 / 5;
 			// int finalY = information[1]+windowX * 3 / 5 + windowY * 3 / 5;
-			return new int[] { objectX + (int) blockX_tran,
-					objectY + (int) blockY_tran };
+			return new int[] { objectX + (int) blockX_tran, objectY + (int) blockY_tran };
 		} else {
 			return null;
 		}

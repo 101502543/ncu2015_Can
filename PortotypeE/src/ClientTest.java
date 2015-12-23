@@ -1,17 +1,18 @@
 import javax.swing.JFrame;
 
-import cot.qin.sdm.ThePanel;
 import cot.qin.sre.DOMmok;
 import cot.qin.sre.SceneRenderEngine;
+import cot.qin.sre.ThePanel;
 
 public class ClientTest {
 	SceneRenderEngine sre = SceneRenderEngine.getInstance();
 	DOMmok dom = DOMmok.getInstance();
 	ThePanel panel = ThePanel.getInstance();
 	JFrame frame = new JFrame();
-	int[][] testmove = { { 1000, 1500 }, { 1000, 1450 }, { 1000, 1400 },
-			{ 1000, 1350 }, { 1000, 1300 }, { 1000, 1250 }, { 1000, 1200 },
-			{ 1000, 1150 }, { 1000, 1100 }, { 1000, 1050 }, { 1000, 1000 } };
+	int[][] testmove = { { 1000, 1500 }, { 1000, 1450 }, { 1000, 1400 }, { 1000, 1350 }, { 1000, 1300 }, { 1000, 1250 },
+			{ 1000, 1200 }, { 1000, 1150 }, { 1000, 1100 }, { 1000, 1050 }, { 1000, 1000 }, { 1050, 1000 },
+			{ 1100, 1000 }, { 1150, 1000 }, { 1200, 1000 }, { 1250, 1000 }, { 1300, 1000 }, { 1350, 1000 },
+			{ 1400, 1000 }, { 1450, 1000 }, { 1500, 1000 } };
 
 	public ClientTest() {
 		// TODO Auto-generated constructor stub

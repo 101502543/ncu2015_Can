@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import org.junit.Test;
 
 import cot.qin.sdm.SceneDataModule;
-import cot.qin.sdm.ThePanel;
 
 public class SRETest extends JFrame {
 
@@ -37,7 +36,7 @@ public class SRETest extends JFrame {
 			e.printStackTrace();
 		}
 		//exercise
-		sre.renderScene();
+//		sre.renderScene();
 		panel.repaint();
 		//assert
 		assertEquals(false, sre.outOfBoundXY);
@@ -49,7 +48,7 @@ public class SRETest extends JFrame {
 		}
 		//exercise
 		dom.setXY(10, 29);
-		sre.renderScene();
+//		sre.renderScene();
 		panel.repaint();
 		//assert
 		assertEquals(false, sre.outOfBoundXY);
@@ -61,7 +60,7 @@ public class SRETest extends JFrame {
 		}
 		//exercise
 		dom.setXY(29, 10);
-		sre.renderScene();
+//		sre.renderScene();
 		panel.repaint();
 		//assert
 		assertEquals(false, sre.outOfBoundXY);
@@ -73,7 +72,7 @@ public class SRETest extends JFrame {
 		}
 		//exercise
 		dom.setXY(40, 30);
-		sre.renderScene();
+//		sre.renderScene();
 		panel.repaint();
 		//assert
 		assertEquals(true, sre.outOfBoundXY);

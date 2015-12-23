@@ -1,4 +1,4 @@
-package cot.qin.sdm;
+package cot.qin.sre;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,12 +8,11 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import cot.qin.sre.SceneRenderEngine;
+import cot.qin.sdm.SceneDataModule;
 
 public class ThePanel extends JPanel {
-	SceneRenderEngine sre = SceneRenderEngine.getInstance();
-	SceneDataModule sdm = SceneDataModule.getInstance();
-
+	private SceneRenderEngine sre = SceneRenderEngine.getInstance();
+	private SceneDataModule sdm = SceneDataModule.getInstance();
 	public static ThePanel panel = null;
 
 	public static ThePanel getInstance() {
@@ -40,16 +39,18 @@ public class ThePanel extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					sre.setZeroY(-25);
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					sre.setZeroY(+25);
-				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					sre.setZeroX(-25);
-				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					sre.setZeroX(+25);
-				}
+				sre.renderScene(e);
 				repaint();
+				// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				// sre.setZeroY(-25);
+				// } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+				// sre.setZeroY(+25);
+				// } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				// sre.setZeroX(-25);
+				// } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				// sre.setZeroX(+25);
+				// }
+				// repaint();
 			}
 		});
 	}
@@ -67,23 +68,26 @@ public class ThePanel extends JPanel {
 				ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(x, y));
 				Image img = test.getImage();
 				g.drawImage(img, theX + (x - information[2]) * information[5],
-						theY + (x - information[2]) * information[6],
-						information[9], information[10], this);
+						theY + (x - information[2]) * information[6], information[9], information[10], this);
 			}
 			theX = information[0] + (y - information[3]) * information[7];
 			theY = information[1] + (y - information[3]) * information[8];
 		}
 
 		// move test
-		ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(25, 25));
-		Image img = test.getImage();
-		g.drawImage(img, testX, testY, information[9], information[10], this);
-
+		if (objectXY != null && sre.inWindow(objectXY)) {
+			moveTest(objectXY);
+			ImageIcon test = new ImageIcon(sdm.getMap().getBlockImage(25, 25));
+			Image img = test.getImage();
+			g.drawImage(img, testX, testY, information[9], information[10], this);
+		}
 	}
 
-	int testX = 110, testY = 50;
+	int testX = 0, testY = 0;
+	int[] objectXY;
 
 	public void moveTest(int[] xy) {
+		objectXY = xy;
 		xy = sre.changeXY(xy);
 		testX = xy[0];
 		testY = xy[1];

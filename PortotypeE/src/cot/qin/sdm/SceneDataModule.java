@@ -6,9 +6,9 @@ import java.io.IOException;
 
 
 public class SceneDataModule {
-	private Map map;
-	public boolean	notFound = false,imageTypeErr = false;
 	public static SceneDataModule sdm = null;
+	private Map map = null;
+	public boolean	notFound = false,imageTypeErr = false;
 	
 	public static SceneDataModule getInstance(){
 		if(sdm == null)
