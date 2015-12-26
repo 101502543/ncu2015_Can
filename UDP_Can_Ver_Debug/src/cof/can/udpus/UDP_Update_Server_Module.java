@@ -78,6 +78,11 @@ public class UDP_Update_Server_Module {
 			String subMsgArrayMTF[] = msgArray[1].split(";");
 		case "setGameTime":
 
+<<<<<<< HEAD
+=======
+		case "setEffect":
+			String subMsgArraySE[] = msgArray[1].split(";");
+>>>>>>> 2192f2f3f1791b88dc46c77ecc8b0dd2e4d8ab1f
 		}
 
 	}

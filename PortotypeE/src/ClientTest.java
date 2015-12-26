@@ -22,7 +22,6 @@ public class ClientTest {
 		frame.setSize(1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		sre.onRoad(new int[]{400,250});
 //		for (int[] is : testmove) {
 //			panel.moveTest(is);
 //			try {
