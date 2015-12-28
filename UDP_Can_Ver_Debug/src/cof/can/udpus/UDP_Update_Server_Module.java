@@ -28,8 +28,10 @@ public class UDP_Update_Server_Module {
 			socket.receive(packet); // receive packet。
 			// transfer the receive message to String。
 			String receiveMsg = new String(buffer, 0, packet.getLength());
-			System.out.println(receiveMsg);
-			judgeCommand(receiveMsg);
+			String msgArray[] = receiveMsg.split("*");
+			for (int i = 0; i < msgArray.length; i++) {
+				judgeCommand(msgArray[i]);
+			}
 			socket.close();
 		}
 	}
@@ -37,8 +39,7 @@ public class UDP_Update_Server_Module {
 	// resposible for decoder
 	public void judgeCommand(String receiveMsg) {
 
-		String msgArray[] = receiveMsg.substring(1, receiveMsg.length() - 1)
-				.split("?");
+		String msgArray[] = receiveMsg.split("?");
 		switch (msgArray[0]) {
 		case "initTowerPosition":
 			String subMsgArrayITP[] = msgArray[1].split("$");

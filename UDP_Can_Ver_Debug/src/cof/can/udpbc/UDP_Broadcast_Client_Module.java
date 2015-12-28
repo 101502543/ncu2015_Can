@@ -103,7 +103,7 @@ class connect extends TimerTask {
 		
 		for (String o : updateInfo) {
 			stringTemp.append(o);
-			stringTemp.append(";");
+			stringTemp.append("*");
 		}
 		String msg = stringTemp.toString();
         stringTemp.delete(0, stringTemp.length());
