@@ -5,6 +5,11 @@ import java.net.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.fourthline.cling.UpnpService;
+import org.fourthline.cling.UpnpServiceImpl;
+import org.fourthline.cling.support.igd.PortMappingListener;
+import org.fourthline.cling.support.model.PortMapping;
+
 public class UDP_client extends Thread {
 
 	int port; // port
@@ -15,6 +20,16 @@ public class UDP_client extends Thread {
 	
 	public static void main(String args[]) throws Exception {
 		UDP_client udp = new UDP_client();//the start point
+		
+		//-----
+		//PortMapping desiredMapping = new PortMapping(8888, "192.168.0.101", PortMapping.Protocol.UDP,
+			//	"My Port Mapping");
+		//UpnpService upnpService = new UpnpServiceImpl(new PortMappingListener(desiredMapping));
+		//upnpService.getControlPoint().search();
+		//-----
+		//-----
+		//String address = InetAddress.getLocalHost().getHostAddress();
+		//System.out.println(address);
 	}
 
 	public UDP_client(){
@@ -41,10 +56,9 @@ public class UDP_client extends Thread {
 			byte buffer[] = msg.getBytes(); // transfer msg to byte
 			// build the packet to DatagramPacket
 			// set the destination
-			DatagramPacket packet = new DatagramPacket(buffer, buffer.length,
-					serverAddress, port);
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length,serverAddress, port);
 			DatagramSocket socket = new DatagramSocket(); // build the server
-
+			
 			socket.send(packet);
 			socket.close();
 		} catch (Exception e) {

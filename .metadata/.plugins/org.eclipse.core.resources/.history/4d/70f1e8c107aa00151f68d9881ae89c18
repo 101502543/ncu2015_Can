@@ -1,0 +1,27 @@
+package cof.hong.tcpsm;
+
+import java.util.ArrayList;
+
+public class TCPSM {
+	public static TCPSM tcpsm = null;
+	private ArrayList<String> iptable;
+	
+	public TCPSM() {
+		iptable = new ArrayList<String>();
+	}
+	
+	public static TCPSM getInstance(){
+		if(tcpsm == null)
+			tcpsm = new TCPSM();
+		return tcpsm;
+	} 
+	
+	public ArrayList<String> getIPTable(){
+		iptable.add("192.168.0.101");
+		iptable.add("127.0.0.1");
+		iptable.add("140.115.50.1");
+		iptable.add("140.115.50.1");
+		
+		return iptable;
+	}
+}

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -23,6 +25,39 @@ public class ThePanel extends JPanel {
 
 	public ThePanel() {
 		// TODO Auto-generated constructor stub
+		this.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				int[] xy = new int[]{e.getX(),e.getY()};
+				sre.onRoad(xy);
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.addKeyListener(new KeyListener() {
 
 			@Override
@@ -40,8 +75,7 @@ public class ThePanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				sre.renderScene(e);
-				repaint();
-				// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				repaint();// if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				// sre.setZeroY(-25);
 				// } else if (e.getKeyCode() == KeyEvent.VK_UP) {
 				// sre.setZeroY(+25);

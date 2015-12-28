@@ -2,11 +2,13 @@ package cot.qin.sre;
 
 import java.awt.event.KeyEvent;
 
+import cot.qin.sdm.Map;
 import cot.qin.sdm.SceneDataModule;
 
 public class SceneRenderEngine {
 	public static SceneRenderEngine sre = null;
 	private SceneDataModule sdm = SceneDataModule.getInstance();
+	private Map map;
 	private int X = 0, Y = 0;
 	private int windowSize = 21;
 	private int panelSizeX = 1000, panelSizeY = 450;
@@ -22,13 +24,16 @@ public class SceneRenderEngine {
 			sre = new SceneRenderEngine();
 		return sre;
 	}
+
 	public void iniXY(int[] xy) {
 		X = xy[0];
 		Y = xy[1];
 	}
+
 	public SceneRenderEngine() {
 		// TODO Auto-generated constructor stub
 		sdm.loadMap("mapfile");
+		map = sdm.getMap();
 	}
 
 	public void renderScene(KeyEvent e) {
@@ -187,5 +192,49 @@ public class SceneRenderEngine {
 		} else {
 			return null;
 		}
+	}
+
+	public int onRoad(int[] xy) {
+		int[] info = sre.getWindowInf();
+		// int[] information = { zeroX, zeroY, X, Y, windowSize, nextColumn[0],
+		// nextColumn[1], nextRow[0], nextRow[1],imageSizeX, imageSizeY };
+
+		int x = xy[0] - 48, y = xy[1];
+		double x_b = ((y - info[1]) * info[7] - (x - info[0]) * info[8]) / (info[7] * info[6] - info[8] * info[5])
+				+ info[2];
+		double y_b = (-(y - info[1]) * info[5] + (x - info[0]) * info[6]) / (info[7] * info[6] - info[8] * info[5])
+				+ info[3] + 1;
+		System.out.println("x: " + x);
+		System.out.println("y: " + y);
+		System.out.println("x_logic: " + x_b);
+		System.out.println("y_logic: " + y_b);
+		if (x_b < 25 && x_b >= 9 && y_b < 25 && y_b >= 9) {
+			if (map.getScene()[(int) y_b][(int) x_b].getType() >= 2
+					|| map.getScene()[(int) y_b][(int) x_b].getType() <= 8) {
+				System.out.println("Is on road 1.");
+				return 1;
+			}
+		} else if (x_b > 25 && x_b <= 41 && y_b < 25 && y_b >= 9) {
+			if (map.getScene()[(int) y_b][(int) x_b].getType() >= 2
+					|| map.getScene()[(int) y_b][(int) x_b].getType() <= 8) {
+				System.out.println("Is on road 2.");
+				return 2;
+			}
+		} else if (x_b > 25 && x_b <= 41 && y_b > 25 && y_b <= 41) {
+			if (map.getScene()[(int) y_b][(int) x_b].getType() >= 2
+					|| map.getScene()[(int) y_b][(int) x_b].getType() <= 8) {
+				System.out.println("Is on road 3.");
+				return 3;
+			}
+		} else if (x_b < 25 && x_b >= 9 && y_b > 25 && y_b <= 41) {
+			if (map.getScene()[(int) y_b][(int) x_b].getType() >= 2
+					|| map.getScene()[(int) y_b][(int) x_b].getType() <= 8) {
+				System.out.println("Is on road 4.");
+				return 4;
+			}
+		} else {
+			return 0;
+		}
+		return 0;
 	}
 }

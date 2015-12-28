@@ -7,9 +7,11 @@ public class UDP_server {
 	int port;//connection port
 	
 	public static void main(String args[]) throws Exception {
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
         UDP_server server = new UDP_server(8888); // build the server
         server.run();                           // execute the server
-    }
+    
+	}
  
     public UDP_server(int openPortNum) {
         port = openPortNum;                            // set the port

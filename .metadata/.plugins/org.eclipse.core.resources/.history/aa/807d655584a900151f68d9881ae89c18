@@ -1,0 +1,36 @@
+import cof.can.udpbc.UDP_Broadcast_Client_Module;
+import cof.can.udpus.UDP_Update_Server_Module;
+import cof.hong.tcpsm.TCPSM;
+import cof.yen.cdc.CDC;
+
+public class Main {
+
+	public static void main(String[] args) throws Exception {
+		CDC cdc = CDC.getInstance();
+		TCPSM tcpsm = TCPSM.getInstance();
+		UDP_Broadcast_Client_Module UDPBC = new UDP_Broadcast_Client_Module(cdc);	// 必先有CDC 才有UDPBC  
+		
+		UDP_Update_Server_Module UDPUS = new UDP_Update_Server_Module(8888);
+		UDPUS.initUDPServer();
+	}
+
+	void testTCPSMfunction() {
+		/*
+		 * ArrayList<String> iptable= tcpsm.getIPTable(); for(int
+		 * i=0;i<iptable.size();i++) System.out.println(iptable.get(i));
+		 */
+	}
+
+	void testCDCfunction() {
+//		/*
+//		 * new Thread(new Runnable() {
+//		 * 
+//		 * @Override public void run() { while(true){ ArrayList<String> update=
+//		 * cdc.getUpdateInfo(); for(int i=0;i<update.size();i++)
+//		 * System.out.println(update.get(i)); try { Thread.sleep(2000); } catch
+//		 * (InterruptedException e) { // TODO Auto-generated catch block
+//		 * e.printStackTrace(); } } } }).start();
+//		 */
+	}
+
+}
